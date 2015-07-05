@@ -1,0 +1,6 @@
+{
+    "name":"KSP-AVC Plugin",
+    "url":"http://ksp-avc.cybutek.net/version.php?id=2",
+    "assembly":"KSP-AVC",
+    "ksp_version":"1.0.*",
+}
