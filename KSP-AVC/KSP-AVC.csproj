@@ -34,6 +34,7 @@
   <ItemGroup>
     <Compile Include="Helpers\LayoutHelper.cs" />
     <Compile Include="Helpers\TextureHelper.cs" />
+    <Compile Include="IssueMonitor.cs" />
     <Compile Include="Overlay.cs" />
     <Compile Include="Loader.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

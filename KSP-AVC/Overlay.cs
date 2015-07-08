@@ -17,6 +17,7 @@
 
 namespace KSP_AVC
 {
+    using System;
     using CoreAVC;
     using CoreAVC.General;
     using Helpers;
@@ -31,6 +32,43 @@ namespace KSP_AVC
         private Rect windowRect = new Rect(0.0f, 0.0f, 400.0f, 0.0f);
         private GUIStyle windowStyle;
         private GUIStyle yellowLabelStyle;
+
+        /// <summary>
+        ///     Draws a button that when clicked copies game and add-on details to the clipboard.
+        /// </summary>
+        private static void CopyToClipboardButton()
+        {
+            // Draw a GUI button.
+            if (GUILayout.Button("Copy to Clipboard"))
+            {
+                // Create a text string and populate the first line with the game details.
+                string copyText = "KSP: " + VersionObject.KspVersion + " - " +
+                                  "Unity: " + Application.unityVersion + " - " +
+                                  "OS: " + SystemInfo.operatingSystem;
+
+                // Iterate over all the loaded add-ons.
+                for (int i = 0; i < AddonLibrary.LoadedAddons.Count; ++i)
+                {
+                    Addon addon = AddonLibrary.LoadedAddons[i];
+                    if (addon != null)
+                    {
+                        // Append the add-on details to the clipboard string.
+                        copyText = copyText + Environment.NewLine + addon.Name + " - " + addon.LocalVersionString;
+                    }
+                }
+
+                // Create a text editor for use with copying the copy text onto the clipboard.
+                TextEditor textEditor = new TextEditor
+                {
+                    // Set the content of the text editor to the copy text.
+                    content = new GUIContent(copyText)
+                };
+
+                // Copy text to the clipboard.
+                textEditor.SelectAll();
+                textEditor.Copy();
+            }
+        }
 
         /// <summary>
         ///     Draws a list of loaded add-ons.
@@ -85,8 +123,12 @@ namespace KSP_AVC
             {
                 // Display a message when there are no loaded add-ons.
                 GUILayout.Label("No AVC enabled add-ons have been processed.", yellowLabelStyle);
+
+                // Do not continue if no add-ons were found.
+                return;
             }
-            else if (compactList)
+
+            if (compactList)
             {
                 // Draw the add-on list inside a scroll view when in compact mode.
                 LayoutHelper.VerticalScroll(AddonList, ref scrollPosition);
@@ -96,6 +138,8 @@ namespace KSP_AVC
                 // Draw the add-on list straight onto the GUI if not in compact mode.
                 AddonList();
             }
+
+            CopyToClipboardButton();
         }
 
         /// <summary>
@@ -181,7 +225,7 @@ namespace KSP_AVC
                 else
                 {
                     // Display the number of loaded add-ons.
-                    GUILayout.Label("AVC Enabled Add-ons: " + AddonLibrary.LoadedAddons.Count);
+                    GUILayout.Label("Installed Add-ons: " + AddonLibrary.LoadedAddons.Count);
                 }
 
                 // Pad the space after the label to push the show list toggle to the right.
