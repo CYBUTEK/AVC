@@ -50,7 +50,7 @@ namespace CoreAVC.Helpers
             {
                 onSuccess.Invoke(www.text);
             }
-            else
+            else if (onFailure != null)
             {
                 onFailure.Invoke();
             }
