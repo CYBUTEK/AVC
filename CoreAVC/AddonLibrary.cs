@@ -19,18 +19,12 @@ namespace CoreAVC
 {
     using System.Collections.Generic;
     using System.IO;
-    using System.Linq;
     using Avc;
     using General;
     using UnityEngine;
 
     public class AddonLibrary
     {
-        /// <summary>
-        ///     Gets the current number of add-ons still to be loaded.
-        /// </summary>
-        public static int LoadingCount { get; private set; }
-
         /// <summary>
         ///     Gets whether the add-on library is currently in the process of loading add-ons.
         /// </summary>
@@ -40,6 +34,11 @@ namespace CoreAVC
         ///     Gets the list of loaded addons.
         /// </summary>
         public static List<Addon> LoadedAddons { get; } = new List<Addon>();
+
+        /// <summary>
+        ///     Gets the current number of add-ons still to be loaded.
+        /// </summary>
+        public static int LoadingCount { get; private set; }
 
         /// <summary>
         ///     Gets the KSP GameData path.

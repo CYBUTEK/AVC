@@ -131,22 +131,6 @@ namespace CoreAVC.Helpers
                 json = new StringReader(jsonString);
             }
 
-            private enum TOKEN
-            {
-                NONE,
-                CURLY_OPEN,
-                CURLY_CLOSE,
-                SQUARED_OPEN,
-                SQUARED_CLOSE,
-                COLON,
-                COMMA,
-                STRING,
-                NUMBER,
-                TRUE,
-                FALSE,
-                NULL
-            };
-
             private char NextChar => Convert.ToChar(json.Read());
 
             private TOKEN NextToken
@@ -229,18 +213,18 @@ namespace CoreAVC.Helpers
 
             private char PeekChar => Convert.ToChar(json.Peek());
 
+            public void Dispose()
+            {
+                json.Dispose();
+                json = null;
+            }
+
             public static object Parse(string jsonString)
             {
                 using (Parser instance = new Parser(jsonString))
                 {
                     return instance.ParseValue();
                 }
-            }
-
-            public void Dispose()
-            {
-                json.Dispose();
-                json = null;
             }
 
             private static bool IsWordBreak(char c)
@@ -455,6 +439,22 @@ namespace CoreAVC.Helpers
                 TOKEN nextToken = NextToken;
                 return ParseByToken(nextToken);
             }
+
+            private enum TOKEN
+            {
+                NONE,
+                CURLY_OPEN,
+                CURLY_CLOSE,
+                SQUARED_OPEN,
+                SQUARED_CLOSE,
+                COLON,
+                COMMA,
+                STRING,
+                NUMBER,
+                TRUE,
+                FALSE,
+                NULL
+            };
         }
 
         private sealed class Serializer

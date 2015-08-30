@@ -37,7 +37,7 @@ namespace KSP_AVC
         /// <summary>
         ///     Called by Unity on Awake to set the GUI styles.
         /// </summary>
-        private void Awake()
+        protected virtual void Awake()
         {
             boxStyle = new GUIStyle(HighLogic.Skin.box)
             {
@@ -56,6 +56,18 @@ namespace KSP_AVC
 
             contentLabelStyle = new GUIStyle(HighLogic.Skin.label);
             contentLabelCentredStyle = new GUIStyle(contentLabelStyle) { alignment = TextAnchor.MiddleCenter };
+        }
+
+        protected virtual void OnGUI()
+        {
+            // Draw the GUI window.
+            windowRect = KSPUtil.ClampRectToScreen(GUILayout.Window(GetInstanceID(), windowRect, Window, "KSP-AVC - Issue Monitor", HighLogic.Skin.window));
+
+            // Check if the window has been initially centred or should be centred.
+            if (hasCentred == false)
+            {
+                hasCentred = CentreWindow();
+            }
         }
 
         /// <summary>
@@ -123,18 +135,6 @@ namespace KSP_AVC
                 GUILayout.Label("INSTALLED", headingLabelCentredStyle, GUILayout.Width(COLUMN_VERSION_WIDTH));
                 GUILayout.Label("AVAILABLE", headingLabelCentredStyle, GUILayout.Width(COLUMN_VERSION_WIDTH));
             });
-        }
-
-        private void OnGUI()
-        {
-            // Draw the GUI window.
-            windowRect = KSPUtil.ClampRectToScreen(GUILayout.Window(GetInstanceID(), windowRect, Window, "KSP-AVC - Issue Monitor", HighLogic.Skin.window));
-
-            // Check if the window has been initially centred or should be centred.
-            if (hasCentred == false)
-            {
-                hasCentred = CentreWindow();
-            }
         }
 
         /// <summary>

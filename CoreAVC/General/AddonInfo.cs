@@ -68,10 +68,10 @@ namespace CoreAVC.General
         public virtual string ToString(int firstLineTabs, int tabs)
         {
             return Utils.ConcatTab(firstLineTabs, tabs,
-                                   "Path: " + Path,
-                                   "NAME: " + Name,
-                                   "VERSION: " + Version,
-                                   "Compatibility", "{", Compatibility.ToString(1, tabs + 1), "}");
+                "Path: " + Path,
+                "NAME: " + Name,
+                "VERSION: " + Version,
+                "Compatibility", "{", Compatibility.ToString(1, tabs + 1), "}");
         }
     }
 }

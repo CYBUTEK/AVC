@@ -24,6 +24,36 @@ namespace KSP_AVC
     [KSPAddon(KSPAddon.Startup.Instantly, false)]
     public class Loader : MonoBehaviour
     {
+        protected virtual void Awake()
+        {
+            // Allow the loader object to persist through scene changes.
+            DontDestroyOnLoad(gameObject);
+        }
+
+        protected virtual void Start()
+        {
+            // Start loading all the AVC enabled add-ons.
+            AddonLibrary.LoadAddons();
+
+            // Create the overlay component.
+            gameObject.AddComponent<Overlay>();
+        }
+
+        protected virtual void Update()
+        {
+            // Check if the add-on library has finished loading.
+            if (AddonLibrary.IsLoading)
+            {
+                return;
+            }
+
+            // Try to show the issue monitor.
+            ShowIssueMonitor();
+
+            // Disable the loader component as the update loop is no longer required.
+            enabled = false;
+        }
+
         /// <summary>
         ///     Checks whether there are any add-on issues.
         /// </summary>
@@ -45,12 +75,6 @@ namespace KSP_AVC
             return false;
         }
 
-        private void Awake()
-        {
-            // Allow the loader object to persist through scene changes.
-            DontDestroyOnLoad(gameObject);
-        }
-
         private void OnLevelWasLoaded()
         {
             // Destroy the object after changing to a scene which AVC should not be running in.
@@ -68,30 +92,6 @@ namespace KSP_AVC
                 // Create the issue monitor component.
                 gameObject.AddComponent<IssueMonitor>();
             }
-        }
-
-        private void Start()
-        {
-            // Start loading all the AVC enabled add-ons.
-            AddonLibrary.LoadAddons();
-
-            // Create the overlay component.
-            gameObject.AddComponent<Overlay>();
-        }
-
-        private void Update()
-        {
-            // Check if the add-on library has finished loading.
-            if (AddonLibrary.IsLoading)
-            {
-                return;
-            }
-
-            // Try to show the issue monitor.
-            ShowIssueMonitor();
-
-            // Disable the loader component as the update loop is no longer required.
-            enabled = false;
         }
     }
 }

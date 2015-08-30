@@ -152,51 +152,11 @@ namespace CoreAVC.General
         public int Patch { get; set; }
 
         /// <summary>
-        ///     Equality operator.
+        ///     Compares this version object to another object with a cast.
         /// </summary>
-        public static bool operator ==(VersionObject version1, VersionObject version2)
+        public int CompareTo(object obj)
         {
-            return Equals(version1, version2);
-        }
-
-        /// <summary>
-        ///     Greater than operator.
-        /// </summary>
-        public static bool operator >(VersionObject version1, VersionObject version2)
-        {
-            return version1.Any || version2.Any || version1.CompareTo(version2) > 0;
-        }
-
-        /// <summary>
-        ///     Greater than or equal to operator.
-        /// </summary>
-        public static bool operator >=(VersionObject version1, VersionObject version2)
-        {
-            return version1.Any || version2.Any || version1.CompareTo(version2) >= 0;
-        }
-
-        /// <summary>
-        ///     Inequality operator.
-        /// </summary>
-        public static bool operator !=(VersionObject version1, VersionObject version2)
-        {
-            return Equals(version1, version2) == false;
-        }
-
-        /// <summary>
-        ///     Less than operator.
-        /// </summary>
-        public static bool operator <(VersionObject version1, VersionObject version2)
-        {
-            return version1.Any || version2.Any || version1.CompareTo(version2) < 0;
-        }
-
-        /// <summary>
-        ///     Less than or equal to operator.
-        /// </summary>
-        public static bool operator <=(VersionObject version1, VersionObject version2)
-        {
-            return version1.Any || version2.Any || version1.CompareTo(version2) <= 0;
+            return CompareTo(obj as VersionObject);
         }
 
         /// <summary>
@@ -266,11 +226,51 @@ namespace CoreAVC.General
         }
 
         /// <summary>
-        ///     Compares this version object to another object with a cast.
+        ///     Equality operator.
         /// </summary>
-        public int CompareTo(object obj)
+        public static bool operator ==(VersionObject version1, VersionObject version2)
         {
-            return CompareTo(obj as VersionObject);
+            return Equals(version1, version2);
+        }
+
+        /// <summary>
+        ///     Greater than operator.
+        /// </summary>
+        public static bool operator >(VersionObject version1, VersionObject version2)
+        {
+            return version1.Any || version2.Any || version1.CompareTo(version2) > 0;
+        }
+
+        /// <summary>
+        ///     Greater than or equal to operator.
+        /// </summary>
+        public static bool operator >=(VersionObject version1, VersionObject version2)
+        {
+            return version1.Any || version2.Any || version1.CompareTo(version2) >= 0;
+        }
+
+        /// <summary>
+        ///     Inequality operator.
+        /// </summary>
+        public static bool operator !=(VersionObject version1, VersionObject version2)
+        {
+            return Equals(version1, version2) == false;
+        }
+
+        /// <summary>
+        ///     Less than operator.
+        /// </summary>
+        public static bool operator <(VersionObject version1, VersionObject version2)
+        {
+            return version1.Any || version2.Any || version1.CompareTo(version2) < 0;
+        }
+
+        /// <summary>
+        ///     Less than or equal to operator.
+        /// </summary>
+        public static bool operator <=(VersionObject version1, VersionObject version2)
+        {
+            return version1.Any || version2.Any || version1.CompareTo(version2) <= 0;
         }
 
         /// <summary>
@@ -430,7 +430,7 @@ namespace CoreAVC.General
                 // Return: Major.Minor.Patch
                 return string.Format("{0}.{1}.{2}", Major, Minor, Patch).Replace("-1", "*");
             }
-            
+
             // Return: Major.Minor
             return string.Format("{0}.{1}", Major, Minor).Replace("-1", "*");
         }

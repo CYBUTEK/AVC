@@ -94,13 +94,13 @@ namespace CoreAVC.General
         public virtual string ToString(int firstLineTabs, int tabs)
         {
             return Utils.ConcatTab(firstLineTabs, tabs, Name, "{",
-                                   Utils.ConcatTab(1, tabs + 1,
-                                                   "UsingRemoteAmendments: " + UsingRemoteAmendments,
-                                                   "IsCompatible: " + IsCompatible,
-                                                   "UpdateAvailable: " + UpdateAvailable,
-                                                   "Local", "{", LocalAddonInfo.ToString(1, tabs + 2), "}",
-                                                   "Remote", "{", RemoteAddonInfo.ToString(1, tabs + 2), "}"),
-                                                   "}");
+                Utils.ConcatTab(1, tabs + 1,
+                    "UsingRemoteAmendments: " + UsingRemoteAmendments,
+                    "IsCompatible: " + IsCompatible,
+                    "UpdateAvailable: " + UpdateAvailable,
+                    "Local", "{", LocalAddonInfo.ToString(1, tabs + 2), "}",
+                    "Remote", "{", RemoteAddonInfo.ToString(1, tabs + 2), "}"),
+                "}");
         }
     }
 }

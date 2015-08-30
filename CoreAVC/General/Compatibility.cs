@@ -103,10 +103,10 @@ namespace CoreAVC.General
         public virtual string ToString(int firstLineTabs, int tabs)
         {
             return Utils.ConcatTab(firstLineTabs, tabs,
-                                   "KSP_VERSION: " + Version,
-                                   "KSP_VERSION_MIN: " + VersionMin,
-                                   "KSP_VERSION_MAX: " + VersionMax,
-                                   "IsCompatible: " + IsCompatible);
+                "KSP_VERSION: " + Version,
+                "KSP_VERSION_MIN: " + VersionMin,
+                "KSP_VERSION_MAX: " + VersionMax,
+                "IsCompatible: " + IsCompatible);
         }
     }
 }
